@@ -51,6 +51,8 @@ namespace EFCoreRelationshipsPractice.Services
                 .Include(_ => _.Profile)
                 .Include(_ => _.Employees)
                 .FirstOrDefault(_ => _.Id == id);
+            companyDbContext.Employees.RemoveRange(company.Employees);
+            companyDbContext.Profiles.Remove(company.Profile);
             companyDbContext.Companies.RemoveRange(company);
             await companyDbContext.SaveChangesAsync();
         }
