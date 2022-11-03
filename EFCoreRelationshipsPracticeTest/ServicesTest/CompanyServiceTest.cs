@@ -96,10 +96,64 @@ namespace EFCoreRelationshipsPracticeTest.ServicesTest
 
             var companiesDtos = await companyService.GetAll();
 
+
             // then
-            Assert.Equal(2, context.Companies.Count());
-            Assert.Equal("IBM", companiesDtos[0].Name);
-            Assert.Equal("SLB", companiesDtos[1].Name);
+            Assert.Equal(2, companiesDtos.Count());
+            Assert.Equal(context.Companies.First().Name, companiesDtos[0].Name);
+        }
+
+        [Fact]
+        public async Task Should_success_when_get_company_dto_given_contextdb_and_id_in_service()
+        {
+            // given
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto1 = new CompanyDto
+            {
+                Name = "IBM",
+                EmployeesDtos = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Tom",
+                        Age = 19,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100010,
+                    CertId = "100",
+                },
+            };
+            CompanyDto companyDto2 = new CompanyDto
+            {
+                Name = "SLB",
+                EmployeesDtos = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Tomy",
+                        Age = 22,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100001,
+                    CertId = "105",
+                },
+            };
+            CompanyService companyService = new CompanyService(context);
+            await companyService.AddCompany(companyDto1);
+            await companyService.AddCompany(companyDto2);
+            int company1Id = context.Companies.First().Id;
+
+            
+
+            // when
+
+            var companyDto = await companyService.GetById(company1Id);
+
+            // then
+            Assert.Equal(context.Companies.First().Name, companyDto.Name);
         }
 
 
