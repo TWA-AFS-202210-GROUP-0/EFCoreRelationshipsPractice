@@ -14,6 +14,9 @@ namespace EFCoreRelationshipsPractice.Repository
 
         public DbSet<ProfileEntity> profileEntities { get; set; }
 
+        public DbSet<EmployeeEntity> employeeEntities { get; set; }
+
+
         internal Task AddAsync()
         {
             throw new NotImplementedException();

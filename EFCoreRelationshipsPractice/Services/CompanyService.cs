@@ -22,6 +22,7 @@ namespace EFCoreRelationshipsPractice.Services
         {
             var companyEntitys = this.companyDbContext.CompanyEntities
                 .Include(company => company.ProfileEntity)
+                .Include(company => company.EmployeesEntity)
                 .ToList();
 
             return companyEntitys.Select(c => new CompanyDto(c)).ToList();

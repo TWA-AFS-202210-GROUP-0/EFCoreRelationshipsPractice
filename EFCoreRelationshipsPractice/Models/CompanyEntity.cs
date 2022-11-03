@@ -1,4 +1,6 @@
-﻿namespace EFCoreRelationshipsPractice.Models
+﻿using EFCoreRelationshipsPractice.Dtos;
+
+namespace EFCoreRelationshipsPractice.Models
 {
     public class CompanyEntity
     {
@@ -6,5 +8,7 @@
         public string Name { get; set; }
 
         public ProfileEntity? ProfileEntity { get; set; }
+        public List<EmployeeEntity>? EmployeesEntity { get; set; }
+
     }
 }

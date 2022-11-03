@@ -25,7 +25,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             // when
             var httpContent = JsonConvert.SerializeObject(companyDto);
             StringContent content = new StringContent(httpContent, Encoding.UTF8, MediaTypeNames.Application.Json);
-            await client.PostAsync("/companies", content);
+            var addRes = await client.PostAsync("/companies", content);
 
             // then
             var allCompaniesResponse = await client.GetAsync("/companies");
@@ -67,7 +67,7 @@ namespace EFCoreRelationshipsPracticeTest.ControllerTest
             Assert.Equal(companyDto.Profile.RegisteredCapital, returnCompanies[0].Profile.RegisteredCapital);
         }
 
-        [Fact(Skip = "fix it later")]
+        [Fact]
         public async Task Should_create_company_with_profile_and_employees_success()
         {
             // given
