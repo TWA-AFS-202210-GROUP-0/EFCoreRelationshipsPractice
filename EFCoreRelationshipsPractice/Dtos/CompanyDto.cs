@@ -30,6 +30,12 @@ namespace EFCoreRelationshipsPractice.Dtos
             entity.Employees = this.EmployeeDTO?.Select(x => x.ToEntity()).ToList();
             return entity;
         }
+
+        public bool Equals(CompanyDto anotherDto)
+        {
+            return Name.Equals(anotherDto.Name) &&
+                    ProfileDTO.Equals(anotherDto.ProfileDTO);
+        }
     }
 
 }

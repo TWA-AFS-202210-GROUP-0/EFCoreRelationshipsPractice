@@ -26,5 +26,11 @@ namespace EFCoreRelationshipsPractice.Dtos
                 CertId = CertId
             };
         }
+
+        public bool Equals(ProfileDto dto)
+        {
+            return CertId.Equals(dto.CertId) &&
+                RegisteredCapital.Equals(dto.RegisteredCapital);
+        }
     }
 }

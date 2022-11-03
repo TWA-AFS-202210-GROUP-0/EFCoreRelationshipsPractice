@@ -22,5 +22,10 @@
                 Age = Age,
             };
         }
+
+        public bool Equals(EmployeeDto dto)
+        {
+            return Name.Equals(dto.Name) && Age.Equals(dto.Age);
+        }
     }
 }
