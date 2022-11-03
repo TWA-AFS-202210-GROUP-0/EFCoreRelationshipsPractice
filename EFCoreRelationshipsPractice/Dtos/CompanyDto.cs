@@ -9,7 +9,7 @@ namespace EFCoreRelationshipsPractice.Dtos
         {
         }
 
-        public CompanyDto(CompanyDbContext.CompanyEntity companyEntity)
+        public CompanyDto(CompanyEntity companyEntity)
         {
             this.Name = companyEntity.Name;
         }
@@ -19,6 +19,14 @@ namespace EFCoreRelationshipsPractice.Dtos
         public ProfileDto? Profile { get; set; }
 
         public List<EmployeeDto>? Employees { get; set; }
+
+        public CompanyEntity ToEntity()
+        {
+            return new CompanyEntity
+            {
+                Name = this.Name,
+            };
+        }
 
     }
 }
