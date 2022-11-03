@@ -1,11 +1,25 @@
 ﻿using System.Collections.Generic;
+using EFCoreRelationshipsPractice.Models;
 
 namespace EFCoreRelationshipsPractice.Dtos
 {
     public class CompanyDto
     {
+        public CompanyDto(CompanyEntity companyEntity)
+        {
+            this.Name = companyEntity.Name;
+        }
+
         public CompanyDto()
         {
+        }
+
+        public CompanyEntity ToEntity()
+        {
+            return new CompanyEntity
+            {
+                Name = this.Name
+            };
         }
 
         public string Name { get; set; }
