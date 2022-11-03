@@ -43,7 +43,11 @@ namespace EFCoreRelationshipsPractice.Services
         public async Task DeleteCompany(int id)
         {
             var company = await companyDbContext.Companies.Include(e => e.ProfileEntity).Include(e => e.EmployeeEntities).SingleOrDefaultAsync(e => e.Id == id);
+
+            companyDbContext.Profiles.RemoveRange(company.ProfileEntity);
+            companyDbContext.Employees.RemoveRange(company.EmployeeEntities);
             companyDbContext.Companies.Remove(company);
+
             await companyDbContext.SaveChangesAsync();
 
         }
