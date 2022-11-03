@@ -146,8 +146,6 @@ namespace EFCoreRelationshipsPracticeTest.ServicesTest
             await companyService.AddCompany(companyDto2);
             int company1Id = context.Companies.First().Id;
 
-            
-
             // when
 
             var companyDto = await companyService.GetById(company1Id);
@@ -155,6 +153,60 @@ namespace EFCoreRelationshipsPracticeTest.ServicesTest
             // then
             Assert.Equal(context.Companies.First().Name, companyDto.Name);
         }
+
+        [Fact]
+        public async Task Should_success_when_delete_company_given_contextdb_and_id_in_service()
+        {
+            // given
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto1 = new CompanyDto
+            {
+                Name = "IBM",
+                EmployeesDtos = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Tom",
+                        Age = 19,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100010,
+                    CertId = "100",
+                },
+            };
+            CompanyDto companyDto2 = new CompanyDto
+            {
+                Name = "SLB",
+                EmployeesDtos = new List<EmployeeDto>()
+                {
+                    new EmployeeDto()
+                    {
+                        Name = "Tomy",
+                        Age = 22,
+                    },
+                },
+                ProfileDto = new ProfileDto()
+                {
+                    RegisteredCapital = 100001,
+                    CertId = "105",
+                },
+            };
+            CompanyService companyService = new CompanyService(context);
+            await companyService.AddCompany(companyDto1);
+            await companyService.AddCompany(companyDto2);
+            int company1Id = context.Companies.First().Id;
+
+            // when
+
+            await companyService.DeleteCompany(company1Id);
+
+            // then
+            Assert.Equal(1, context.Companies.Count());
+        }
+
+
 
 
 
