@@ -22,5 +22,11 @@ namespace EFCoreRelationshipsPractice.Repository
             set;
         }
 
+        public DbSet<EmployeeEntity> Employees
+        {
+            get;
+            set;
+        }
+
     }
 }
