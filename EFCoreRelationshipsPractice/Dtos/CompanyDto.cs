@@ -39,6 +39,7 @@ namespace EFCoreRelationshipsPractice.Dtos
             };
         }
 
+
         public string Name { get; set; }
 
         public ProfileDto? Profile { get; set; }

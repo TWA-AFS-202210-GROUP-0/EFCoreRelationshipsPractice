@@ -60,6 +60,21 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             // then
             Assert.Equal(2, res.Count());
         }
+        [Fact]
+        public async Task Should_get_company_success_by_Id_via_company_service()
+        {
+            //given
+            var context = GetCompanyDbContext();
+            var c1 = getCompanyDto();
+            CompanyService companyService = new CompanyService(context);
+            var res = await companyService.AddCompany(c1);
+            // when
+            var newRes = await companyService.GetById(res);
+
+            // then
+            Assert.Equal("sbl", newRes.Name);
+        }
+
 
         private CompanyDbContext GetCompanyDbContext()
         {
