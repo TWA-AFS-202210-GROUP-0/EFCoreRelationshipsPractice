@@ -13,4 +13,6 @@ namespace EFCoreRelationshipsPractice.Repository;
 
         public ProfileEntity? ProfileEntity { get; set; }
 
+        public List<EmployeeEntity> EmployeeEntities { get; set; }
+
     }
