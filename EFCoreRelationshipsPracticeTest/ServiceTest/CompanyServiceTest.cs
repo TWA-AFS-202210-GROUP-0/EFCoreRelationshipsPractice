@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EFCoreRelationshipsPracticeTest.ServiceTest
 {
+    [Collection("1")]
     public class CompanyServiceTest : TestBase
     {
         public CompanyServiceTest(CustomWebApplicationFactory<Program> factory) : base(factory)
