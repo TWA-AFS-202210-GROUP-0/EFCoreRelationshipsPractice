@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EFCoreRelationshipsPracticeTest.ServiceTest
 {
-    [Collection("lalala")]
+    [Collection("aaa")]
     public class CompanyServiceTest : TestBase
     {
         public CompanyServiceTest(CustomWebApplicationFactory<Program> factory) : base(factory)
@@ -139,9 +139,9 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             };
             CompanyService companyService = new CompanyService(context);
             // when
-            await companyService.AddCompany(companyDto);
+            int id = await companyService.AddCompany(companyDto);
             await companyService.AddCompany(companyDto2);
-            var response = await companyService.GetById(1);
+            var response = await companyService.GetById(id);
 
             //then
             Assert.Equal("IBM", response.Name);
