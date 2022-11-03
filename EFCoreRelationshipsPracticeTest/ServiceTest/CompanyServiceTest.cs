@@ -75,6 +75,7 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             // then
             Assert.Equal(0, context.Companies.Count());
         }
+
         [Fact]
         public async Task Should_get_company_by_id_success_via_company_service()
         {
@@ -105,6 +106,51 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             Assert.Equal(companyDto.EmployeeDtos[0].Age, getCompanyDto.EmployeeDtos[0].Age);
             Assert.Equal(companyDto.ProfileDto.RegisteredCapital, getCompanyDto.ProfileDto.RegisteredCapital);
             Assert.Equal(companyDto.ProfileDto.CertId, getCompanyDto.ProfileDto.CertId);
+        }
+
+        [Fact]
+        public async Task Should_get_all_company_success_via_company_service()
+        {
+            // given
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto = new CompanyDto();
+            companyDto.Name = "IBM";
+            companyDto.EmployeeDtos = new List<EmployeeDto>()
+            {
+                new EmployeeDto()
+                {
+                    Name = "Tom",
+                    Age = 19,
+                },
+            };
+            companyDto.ProfileDto = new ProfileDto()
+            {
+                RegisteredCapital = 100010,
+                CertId = "100",
+            };
+            CompanyDto companyDto1 = new CompanyDto();
+            companyDto1.Name = "Intel";
+            companyDto1.EmployeeDtos = new List<EmployeeDto>()
+            {
+                new EmployeeDto()
+                {
+                    Name = "Alex",
+                    Age = 59,
+                },
+            };
+            companyDto1.ProfileDto = new ProfileDto()
+            {
+                RegisteredCapital = 100011,
+                CertId = "101",
+            };
+            CompanyService companyService = new CompanyService(context);
+            await companyService.AddCompany(companyDto);
+            await companyService.AddCompany(companyDto1);
+            // when
+            var geCompanyDtos= await companyService.GetAll();
+            // then
+            Assert.Equal(2, geCompanyDtos.Count());
+
         }
 
         private CompanyDbContext GetCompanyDbContext()
