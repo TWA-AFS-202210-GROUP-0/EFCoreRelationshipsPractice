@@ -1,4 +1,8 @@
-﻿namespace EFCoreRelationshipsPractice.Repository;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using EFCoreRelationshipsPractice.Dtos;
+using EFCoreRelationshipsPractice.Model;
+
+namespace EFCoreRelationshipsPractice.Repository;
 
 
     public class CompanyEntity
@@ -7,5 +11,6 @@
 
         public string Name { get; set; }
 
-        public double Revenue { get; set; }
+        public ProfileEntity? ProfileEntity { get; set; }
+
     }
