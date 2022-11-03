@@ -8,6 +8,11 @@ namespace EFCoreRelationshipsPractice.Dtos
         public CompanyDto(CompanyEntity companyEntity)
         {
             this.Name = companyEntity.Name;
+
+            if (companyEntity.ProfileEntity != null)
+            {
+                Profile = new ProfileDto(companyEntity.ProfileEntity);
+            }
         }
 
         public CompanyDto(string Name)
@@ -23,7 +28,8 @@ namespace EFCoreRelationshipsPractice.Dtos
         {
             return new CompanyEntity
             {
-                Name = this.Name
+                Name = this.Name,
+                ProfileEntity = this.Profile?.toProfileEntity(),
             };
         }
 
