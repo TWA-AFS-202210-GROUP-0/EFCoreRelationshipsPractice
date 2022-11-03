@@ -18,7 +18,8 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<List<CompanyDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var companies = companyDbContext.Companies.ToList();
+            return companies.Select(x => new CompanyDto(x)).ToList();
         }
 
         public async Task<CompanyDto> GetById(long id)
@@ -28,7 +29,15 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task<int> AddCompany(CompanyDto companyDto)
         {
-            throw new NotImplementedException();
+            // 1. cover DTO to entity
+            CompanyEntity companyEntity = companyDto.ToEntity();
+
+            // 2. Save entity to DB
+            await companyDbContext.Companies.AddAsync(companyEntity);
+            await companyDbContext.SaveChangesAsync();
+
+            // 3. return company ID
+            return companyEntity.Id;
         }
 
         public async Task DeleteCompany(int id)
