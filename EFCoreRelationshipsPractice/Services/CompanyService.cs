@@ -38,7 +38,7 @@ namespace EFCoreRelationshipsPractice.Services
             CompanyEntity companyEntity = companyDto.ToEntity();
 
             // 2. Save entity to DB
-            await companyDbContext.Companies.AddAsync(companyEntity);
+            companyDbContext.Companies.Add(companyEntity);
             await companyDbContext.SaveChangesAsync();
 
             // 3. return company ID
@@ -47,7 +47,12 @@ namespace EFCoreRelationshipsPractice.Services
 
         public async Task DeleteCompany(int id)
         {
-            throw new NotImplementedException();
+            var company = companyDbContext.Companies
+                .Include(_ => _.Profile)
+                .Include(_ => _.Employees)
+                .FirstOrDefault(_ => _.Id == id);
+            companyDbContext.Companies.RemoveRange(company);
+            await companyDbContext.SaveChangesAsync();
         }
     }
 }
