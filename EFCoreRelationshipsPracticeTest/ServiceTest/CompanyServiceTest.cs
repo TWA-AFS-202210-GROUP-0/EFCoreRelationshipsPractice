@@ -75,6 +75,37 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             // then
             Assert.Equal(0, context.Companies.Count());
         }
+        [Fact]
+        public async Task Should_get_company_by_id_success_via_company_service()
+        {
+            // given
+            var context = GetCompanyDbContext();
+            CompanyDto companyDto = new CompanyDto();
+            companyDto.Name = "IBM";
+            companyDto.EmployeeDtos = new List<EmployeeDto>()
+            {
+                new EmployeeDto()
+                {
+                    Name = "Tom",
+                    Age = 19,
+                },
+            };
+            companyDto.ProfileDto = new ProfileDto()
+            {
+                RegisteredCapital = 100010,
+                CertId = "100",
+            };
+            CompanyService companyService = new CompanyService(context);
+            var id = await companyService.AddCompany(companyDto);
+            // when
+            var getCompanyDto = await companyService.GetById(id);
+            // then
+            Assert.Equal(companyDto.Name, getCompanyDto.Name);
+            Assert.Equal(companyDto.EmployeeDtos[0].Name, getCompanyDto.EmployeeDtos[0].Name);
+            Assert.Equal(companyDto.EmployeeDtos[0].Age, getCompanyDto.EmployeeDtos[0].Age);
+            Assert.Equal(companyDto.ProfileDto.RegisteredCapital, getCompanyDto.ProfileDto.RegisteredCapital);
+            Assert.Equal(companyDto.ProfileDto.CertId, getCompanyDto.ProfileDto.CertId);
+        }
 
         private CompanyDbContext GetCompanyDbContext()
         {
