@@ -4,7 +4,6 @@ namespace EFCoreRelationshipsPractice.Dtos
 {
     public class ProfileDto
     {
-        private ProfileEntity? profile;
 
         public ProfileDto()
         {
