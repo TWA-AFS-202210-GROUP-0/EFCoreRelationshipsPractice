@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreRelationshipsPractice.Dtos;
+using EFCoreRelationshipsPractice.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreRelationshipsPractice.Repository
 {
@@ -7,6 +9,24 @@ namespace EFCoreRelationshipsPractice.Repository
         public CompanyDbContext(DbContextOptions<CompanyDbContext> options)
             : base(options)
         {
+        }
+
+        public DbSet<CompanyEntity> Companies
+        {
+            get;
+            set;
+        }
+
+        public DbSet<ProfileEntity> Profiles
+        {
+            get;
+            set;
+        }
+
+        public DbSet<EmployeeEntity> Employees
+        {
+            get;
+            set;
         }
     }
 }
