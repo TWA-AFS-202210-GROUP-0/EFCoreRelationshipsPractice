@@ -98,8 +98,10 @@ namespace EFCoreRelationshipsPracticeTest.ServicesTest
 
 
             // then
+            var companiesName = companiesDtos.Select(company => company.Name);
+            Assert.Contains("SLB", companiesName);
+            Assert.Contains("IBM", companiesName);
             Assert.Equal(2, companiesDtos.Count());
-            Assert.Equal(context.Companies.First().Name, companiesDtos[0].Name);
         }
 
         [Fact]
@@ -144,14 +146,14 @@ namespace EFCoreRelationshipsPracticeTest.ServicesTest
             CompanyService companyService = new CompanyService(context);
             await companyService.AddCompany(companyDto1);
             await companyService.AddCompany(companyDto2);
-            int company1Id = context.Companies.First().Id;
+            int company2Id = context.Companies.FirstOrDefault(x => x.Name == "SLB").Id;
 
             // when
 
-            var companyDto = await companyService.GetById(company1Id);
+            var companyDto = await companyService.GetById(company2Id);
 
             // then
-            Assert.Equal(context.Companies.First().Name, companyDto.Name);
+            Assert.Equivalent(companyDto2, companyDto);
         }
 
         [Fact]
