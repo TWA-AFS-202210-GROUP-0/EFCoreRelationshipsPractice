@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreRelationshipsPractice.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace EFCoreRelationshipsPractice.Repository
 {
@@ -8,5 +10,18 @@ namespace EFCoreRelationshipsPractice.Repository
             : base(options)
         {
         }
+
+        public DbSet<CompanyEntity> CompanyEntities { get; set; }
+
+        public DbSet<ProfileEntity> profileEntities { get; set; }
+
+        public DbSet<EmployeeEntity> employeeEntities { get; set; }
+
+
+        internal Task AddAsync()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
