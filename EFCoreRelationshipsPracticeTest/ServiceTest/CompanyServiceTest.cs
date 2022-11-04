@@ -7,6 +7,8 @@ using EFCoreRelationshipsPractice.Dtos;
 using EFCoreRelationshipsPractice.Repository;
 using EFCoreRelationshipsPractice.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Xunit;
 
 namespace EFCoreRelationshipsPracticeTest.ServiceTest
 {
@@ -59,7 +61,17 @@ namespace EFCoreRelationshipsPracticeTest.ServiceTest
             //When
             var company = await companyService.GetById(companyId);
             //Then
-            Assert.Equal("IBM", company.Name);
+            //1.
+            var obj1 = newCompanyDto.ToString();
+            var obj2 = company.ToString();
+            Assert.Equal(obj1, obj2);
+            //2.
+            var objJ1 = JsonConvert.SerializeObject(newCompanyDto);
+            var objJ2 = JsonConvert.SerializeObject(company);
+            Assert.Equal(objJ1, objJ2);
+            //3.
+            Assert.Equivalent(newCompanyDto, company);
+
         }
 
         [Fact]
